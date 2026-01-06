@@ -1,0 +1,415 @@
+/* ========== CalculadoraConversion.css ========== */
+
+/* ========== CONTENEDOR PRINCIPAL ========== */
+.calculadora-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ========== PANEL IZQUIERDO ========== */
+.panel-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-wrapper label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.input-wrapper select,
+.input-wrapper input {
+  padding: 0.75rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  border: 1px solid var(--gray-200);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  background-color: var(--white);
+  letter-spacing: 0.01em;
+}
+
+.input-wrapper select:hover,
+.input-wrapper input:hover {
+  border-color: var(--gray-300);
+}
+
+.input-wrapper select:focus,
+.input-wrapper input:focus {
+  border-color: var(--polo-azul);
+  background-color: var(--white);
+  box-shadow: 0 0 0 3px rgba(58, 120, 163, 0.06);
+  outline: none;
+}
+
+.input-wrapper select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========== TABLA DE REFERENCIA ========== */
+.tabla-referencia {
+  margin-top: auto;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 0.75rem;
+}
+
+.tabla-referencia-titulo {
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--gray-700);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.tabla-referencia-lista {
+  font-size: 0.75rem;
+  color: var(--gray-700);
+}
+
+.tabla-referencia-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: all 0.2s ease;
+}
+
+.tabla-referencia-item:last-child {
+  border-bottom: none;
+}
+
+.tabla-referencia-item:hover {
+  padding-left: 0.5rem;
+}
+
+.tabla-referencia-item span:first-child {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--gray-700);
+}
+
+.tabla-referencia-item span:last-child {
+  font-weight: 600;
+  font-family: 'Inter', monospace;
+  color: var(--gray-900);
+  letter-spacing: 0.01em;
+}
+
+/* ========== PANEL DERECHO ========== */
+.panel-resultado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+}
+
+/* ========== ESTADO VACÍO ========== */
+.estado-vacio {
+  text-align: center;
+  color: var(--gray-400);
+  animation: fadeIn 0.5s ease;
+}
+
+.estado-vacio-icono {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+  background: var(--polo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.estado-vacio-texto {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--gray-500);
+  letter-spacing: 0.02em;
+}
+
+/* ========== RESULTADO CONTAINER ========== */
+.resultado-container {
+  width: 100%;
+  animation: slideInRight 0.4s ease;
+}
+
+/* ========== SUELDOS COMPARADOS ========== */
+.sueldos-comparados {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.sueldo-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.sueldo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sueldo-card-actual {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+}
+
+.sueldo-card-nuevo {
+  background: var(--polo-gradient);
+  border: none;
+}
+
+.sueldo-label {
+  font-size: 0.65rem;
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.sueldo-label-actual {
+  color: var(--gray-600);
+}
+
+.sueldo-label-nuevo {
+  color: white;
+}
+
+.sueldo-monto {
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-family);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.sueldo-monto-actual {
+  color: var(--gray-900);
+}
+
+.sueldo-monto-nuevo {
+  color: white;
+}
+
+.sueldo-categoria {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.3rem 0.875rem;
+  border-radius: 2rem;
+  display: inline-block;
+  letter-spacing: 0.05em;
+}
+
+.sueldo-categoria-actual {
+  background-color: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.sueldo-categoria-nuevo {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ========== CONVERSIÓN DE HORAS ========== */
+.conversion-container {
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.conversion-titulo {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--polo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.conversion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.conversion-item {
+  text-align: center;
+  padding: 1.25rem;
+  background: var(--gray-50);
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.conversion-item:hover {
+  transform: translateY(-2px);
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.conversion-label {
+  font-size: 0.65rem;
+  color: var(--gray-600);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.conversion-numero {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1;
+  font-family: var(--font-family);
+  letter-spacing: -0.03em;
+  margin: 0.4rem 0;
+}
+
+.conversion-numero-trabajadas {
+  color: var(--gray-900);
+}
+
+.conversion-numero-liquidar {
+  background: var(--polo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.conversion-numero-diferencia {
+  color: var(--polo-verde);
+}
+
+.conversion-unidad {
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin-top: 0.3rem;
+  letter-spacing: 0.02em;
+}
+
+.conversion-unidad-trabajadas {
+  color: var(--gray-600);
+}
+
+.conversion-unidad-liquidar {
+  color: var(--polo-azul);
+}
+
+.conversion-unidad-diferencia {
+  color: var(--polo-verde);
+}
+
+/* ========== MONTO FINAL ========== */
+.monto-final {
+  padding: 1.5rem;
+  background: var(--gray-50);
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.monto-final-label {
+  font-size: 0.65rem;
+  color: var(--gray-600);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.4rem;
+}
+
+.monto-final-valor {
+  font-size: 2.4rem;
+  font-weight: 500;
+  background: var(--polo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--font-family);
+  letter-spacing: -0.02em;
+  margin: 0.4rem 0;
+  line-height: 1;
+}
+
+.monto-final-detalle {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  margin-top: 0.4rem;
+  font-weight: 400;
+  font-family: 'Inter', monospace;
+  letter-spacing: 0.01em;
+}
+
+/* ========== ANIMACIONES ========== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1200px) {
+  .calculadora-container {
+    grid-template-columns: 320px 1fr;
+  }
+  .conversion-numero { font-size: 2rem; }
+  .monto-final-valor { font-size: 1.75rem; }
+  .sueldo-monto { font-size: 1.75rem; }
+}
+
+@media (max-width: 1024px) {
+  .calculadora-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .sueldos-comparados { grid-template-columns: 1fr; }
+  .conversion-grid { grid-template-columns: 1fr; }
+}

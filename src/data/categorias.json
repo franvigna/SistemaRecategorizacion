@@ -1,0 +1,35 @@
+{
+  "categorias": [
+    {
+      "id": "inicial",
+      "nombre": "Inicial",
+      "valorHora": 3255,
+      "orden": 1
+    },
+    {
+      "id": "intermedio",
+      "nombre": "Intermedio",
+      "valorHora": 4266,
+      "orden": 2
+    },
+    {
+      "id": "superior",
+      "nombre": "Superior",
+      "valorHora": 5203,
+      "orden": 3
+    },
+    {
+      "id": "lider",
+      "nombre": "Líder",
+      "valorHora": 6244,
+      "orden": 4
+    },
+    {
+      "id": "senior",
+      "nombre": "Senior",
+      "valorHora": 7808,
+      "orden": 5
+    }
+  ],
+  "ultimaActualizacion": "2025-01-06"
+}
