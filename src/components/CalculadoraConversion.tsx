@@ -1,7 +1,8 @@
 // ========== CalculadoraConversion.tsx ==========
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Categoria } from '../types';
 import { calcularConversionHoras, formatearNumero } from '../utils/calculations';
+import { calcularDiasHabiles } from '../utils/diasHabiles';
 import categoriasData from '../data/categorias.json';
 import './CalculadoraConversion.css';
 
@@ -11,6 +12,39 @@ export default function CalculadoraConversion() {
   const [categoriaActualId, setCategoriaActualId] = useState<string>('');
   const [categoriaNuevaId, setCategoriaNuevaId] = useState<string>('');
   const [horasBase, setHorasBase] = useState<string>('');
+  const [diasHabiles, setDiasHabiles] = useState<number | null>(null);
+  const [cargandoDias, setCargandoDias] = useState(true);
+
+  useEffect(() => {
+    const obtenerDiasHabiles = async () => {
+      setCargandoDias(true);
+      try {
+        const dias = await calcularDiasHabiles();
+        setDiasHabiles(dias);
+      } catch (error) {
+        console.error('Error al calcular días hábiles:', error);
+        // Fallback: calcular sin API de feriados
+        const ahora = new Date();
+        const año = ahora.getFullYear();
+        const mes = ahora.getMonth();
+        const primerDia = new Date(año, mes, 1);
+        const ultimoDia = new Date(año, mes + 1, 0);
+        
+        let dias = 0;
+        for (let d = new Date(primerDia); d <= ultimoDia; d.setDate(d.getDate() + 1)) {
+          const diaSemana = d.getDay();
+          if (diaSemana !== 0 && diaSemana !== 6) {
+            dias++;
+          }
+        }
+        setDiasHabiles(dias);
+      } finally {
+        setCargandoDias(false);
+      }
+    };
+
+    obtenerDiasHabiles();
+  }, []);
 
   const categoriaActual = categorias.find((c) => c.id === categoriaActualId);
   const categoriaNueva = categorias.find((c) => c.id === categoriaNuevaId);
@@ -34,6 +68,21 @@ export default function CalculadoraConversion() {
     <div className="calculadora-container">
       {/* Panel Izquierdo - Inputs */}
       <div className="panel-inputs">
+        {/* Información de Días Hábiles */}
+        <div className="info-dias-habiles">
+          {cargandoDias ? (
+            <div className="info-dias-cargando">Calculando...</div>
+          ) : (
+            <div className="info-dias-valor">
+              <span className="info-dias-numero">{diasHabiles} </span>
+              <span className="info-dias-texto">días laborables</span>
+            </div>
+          )}
+          <div className="info-dias-detalle">
+            {new Date().toLocaleString('es-AR', { month: 'long', year: 'numeric' })}
+          </div>
+        </div>
+
         {/* Categoría Actual */}
         <div className="input-wrapper">
           <label className="input-label">Categoría Actual</label>
