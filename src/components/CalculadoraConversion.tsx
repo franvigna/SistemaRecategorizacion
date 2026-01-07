@@ -14,21 +14,22 @@ export default function CalculadoraConversion() {
   const [horasBase, setHorasBase] = useState<string>('');
   const [diasHabiles, setDiasHabiles] = useState<number | null>(null);
   const [cargandoDias, setCargandoDias] = useState(true);
+  const [mesSeleccionado, setMesSeleccionado] = useState<number>(new Date().getMonth());
+  const [añoSeleccionado, setAñoSeleccionado] = useState<number>(new Date().getFullYear());
+  const [mostrarSelector, setMostrarSelector] = useState(false);
 
   useEffect(() => {
     const obtenerDiasHabiles = async () => {
       setCargandoDias(true);
       try {
-        const dias = await calcularDiasHabiles();
+        const dias = await calcularDiasHabiles(añoSeleccionado, mesSeleccionado);
         setDiasHabiles(dias);
+        // Calcular horas automáticamente (días × 6)
+        setHorasBase((dias * 6).toString());
       } catch (error) {
         console.error('Error al calcular días hábiles:', error);
-        // Fallback: calcular sin API de feriados
-        const ahora = new Date();
-        const año = ahora.getFullYear();
-        const mes = ahora.getMonth();
-        const primerDia = new Date(año, mes, 1);
-        const ultimoDia = new Date(año, mes + 1, 0);
+        const primerDia = new Date(añoSeleccionado, mesSeleccionado, 1);
+        const ultimoDia = new Date(añoSeleccionado, mesSeleccionado + 1, 0);
         
         let dias = 0;
         for (let d = new Date(primerDia); d <= ultimoDia; d.setDate(d.getDate() + 1)) {
@@ -38,13 +39,15 @@ export default function CalculadoraConversion() {
           }
         }
         setDiasHabiles(dias);
+        // Calcular horas automáticamente (días × 6)
+        setHorasBase((dias * 6).toString());
       } finally {
         setCargandoDias(false);
       }
     };
 
     obtenerDiasHabiles();
-  }, []);
+  }, [mesSeleccionado, añoSeleccionado]);
 
   const categoriaActual = categorias.find((c) => c.id === categoriaActualId);
   const categoriaNueva = categorias.find((c) => c.id === categoriaNuevaId);
@@ -64,6 +67,13 @@ export default function CalculadoraConversion() {
 
   const resultado = calcularResultado();
 
+  const meses = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  ];
+
+  const años = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - 2 + i);
+
   return (
     <div className="calculadora-container">
       {/* Panel Izquierdo - Inputs */}
@@ -78,9 +88,55 @@ export default function CalculadoraConversion() {
               <span className="info-dias-texto">días laborables</span>
             </div>
           )}
-          <div className="info-dias-detalle">
-            {new Date().toLocaleString('es-AR', { month: 'long', year: 'numeric' })}
+          <div 
+            className="info-dias-detalle"
+            onClick={() => setMostrarSelector(!mostrarSelector)}
+          >
+            {meses[mesSeleccionado]} de {añoSeleccionado} ▼
           </div>
+
+          {/* Selector de Mes/Año */}
+          {mostrarSelector && (
+            <div className="selector-fecha">
+              <div className="selector-header">Seleccionar período</div>
+              <div className="selector-body">
+                <div className="selector-seccion">
+                  <label className="selector-label">Mes</label>
+                  <select
+                    className="selector-select"
+                    value={mesSeleccionado}
+                    onChange={(e) => setMesSeleccionado(parseInt(e.target.value))}
+                  >
+                    {meses.map((mes, idx) => (
+                      <option key={idx} value={idx}>
+                        {mes.charAt(0).toUpperCase() + mes.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="selector-seccion">
+                  <label className="selector-label">Año</label>
+                  <select
+                    className="selector-select"
+                    value={añoSeleccionado}
+                    onChange={(e) => setAñoSeleccionado(parseInt(e.target.value))}
+                  >
+                    {años.map((año) => (
+                      <option key={año} value={año}>
+                        {año}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <button
+                className="selector-btn"
+                onClick={() => setMostrarSelector(false)}
+              >
+                Aplicar
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Categoría Actual */}
@@ -135,6 +191,14 @@ export default function CalculadoraConversion() {
             min="0"
             step="0.1"
           />
+          <div style={{ 
+            fontSize: '0.7rem', 
+            color: '#666', 
+            marginTop: '0.25rem',
+            fontWeight: '400'
+          }}>
+            Calculado automáticamente: {diasHabiles} días × 6 horas
+          </div>
         </div>
 
         {/* Tabla de Referencia */}

@@ -20,9 +20,10 @@
   border-radius: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
+
 /* ========== Información Días Hábiles ========== */
 .info-dias-habiles {
-  /* background: linear-gradient(135deg, #409a87 0%, #3a78a3 100%); */
+  position: relative;
   border-radius: 12px;
   padding: 12px 20px;
   border: 3px solid #409a87;
@@ -41,6 +42,17 @@
   font-size: 32px;
   font-weight: 700;
   line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.info-dias-numero {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.info-dias-texto {
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .info-dias-detalle {
@@ -48,10 +60,110 @@
   opacity: 0.85;
   text-transform: capitalize;
   font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
 }
-.info-dias-texto{
-      font-weight: 500;
-    font-size: 20px;
+
+.info-dias-detalle:hover {
+  opacity: 1;
+}
+
+/* ========== Selector de Fecha ========== */
+.selector-fecha {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 1000;
+  animation: fadeInDown 0.2s ease;
+}
+
+.selector-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #236d5d;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.selector-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.selector-seccion {
+  display: flex;
+  flex-direction: column;
+}
+
+.selector-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.selector-select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selector-select:hover {
+  border-color: #409a87;
+}
+
+.selector-select:focus {
+  outline: none;
+  border-color: #409a87;
+  box-shadow: 0 0 0 3px rgba(64, 154, 135, 0.1);
+}
+
+.selector-btn {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #409a87 0%, #3a78a3 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selector-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(64, 154, 135, 0.3);
+}
+
+.selector-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .input-wrapper {
