@@ -1,4 +1,3 @@
-// ========== App.tsx ========== (Actualizado)
 import './styles/index.css';
 import './styles/components.css';
 import CalculadoraConversion from './components/CalculadoraConversion';

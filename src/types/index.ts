@@ -1,5 +1,3 @@
-// src/types/index.ts
-
 export interface Categoria {
   id: string;
   nombre: string;

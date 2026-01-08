@@ -1,4 +1,3 @@
-// ========== CalculadoraConversion.tsx ==========
 import { useState, useEffect } from 'react';
 import type { Categoria } from '../types';
 import { calcularConversionHoras, formatearNumero } from '../utils/calculations';
@@ -24,7 +23,6 @@ export default function CalculadoraConversion() {
       try {
         const dias = await calcularDiasHabiles(añoSeleccionado, mesSeleccionado);
         setDiasHabiles(dias);
-        // Calcular horas automáticamente (días × 6)
         setHorasBase((dias * 6).toString());
       } catch (error) {
         console.error('Error al calcular días hábiles:', error);
@@ -39,7 +37,6 @@ export default function CalculadoraConversion() {
           }
         }
         setDiasHabiles(dias);
-        // Calcular horas automáticamente (días × 6)
         setHorasBase((dias * 6).toString());
       } finally {
         setCargandoDias(false);
@@ -76,9 +73,7 @@ export default function CalculadoraConversion() {
 
   return (
     <div className="calculadora-container">
-      {/* Panel Izquierdo - Inputs */}
       <div className="panel-inputs">
-        {/* Información de Días Hábiles */}
         <div className="info-dias-habiles">
           {cargandoDias ? (
             <div className="info-dias-cargando">Calculando...</div>
@@ -95,7 +90,6 @@ export default function CalculadoraConversion() {
             {meses[mesSeleccionado]} de {añoSeleccionado} ▼
           </div>
 
-          {/* Selector de Mes/Año */}
           {mostrarSelector && (
             <div className="selector-fecha">
               <div className="selector-header">Seleccionar período</div>
@@ -139,7 +133,6 @@ export default function CalculadoraConversion() {
           )}
         </div>
 
-        {/* Categoría Actual */}
         <div className="input-wrapper">
           <label className="input-label">Categoría Actual</label>
           <select
@@ -156,7 +149,6 @@ export default function CalculadoraConversion() {
           </select>
         </div>
 
-        {/* Categoría Nueva */}
         <div className="input-wrapper">
           <label className="input-label">Categoría Nueva (Aumento)</label>
           <select
@@ -179,7 +171,6 @@ export default function CalculadoraConversion() {
           </select>
         </div>
 
-        {/* Horas Trabajadas */}
         <div className="input-wrapper">
           <label className="input-label">Horas Trabajadas</label>
           <input
@@ -201,7 +192,6 @@ export default function CalculadoraConversion() {
           </div>
         </div>
 
-        {/* Tabla de Referencia */}
         <div className="tabla-referencia">
           <div className="tabla-referencia-titulo">Valores de Referencia</div>
           <div className="tabla-referencia-lista">
@@ -215,7 +205,6 @@ export default function CalculadoraConversion() {
         </div>
       </div>
 
-      {/* Panel Derecho - Resultado */}
       <div className="panel-resultado">
         {!resultado && (
           <div className="estado-vacio">
@@ -226,9 +215,7 @@ export default function CalculadoraConversion() {
 
         {resultado && categoriaActual && categoriaNueva && (
           <div className="resultado-container">
-            {/* Sueldos Comparados */}
             <div className="sueldos-comparados">
-              {/* Sueldo Actual */}
               <div className="sueldo-card sueldo-card-actual">
                 <div className="sueldo-label sueldo-label-actual">Sueldo Actual</div>
                 <div className="sueldo-monto sueldo-monto-actual">
@@ -239,7 +226,6 @@ export default function CalculadoraConversion() {
                 </div>
               </div>
 
-              {/* Sueldo Nuevo */}
               <div className="sueldo-card sueldo-card-nuevo">
                 <div className="sueldo-label sueldo-label-nuevo">Sueldo Nuevo</div>
                 <div className="sueldo-monto sueldo-monto-nuevo">
@@ -251,12 +237,10 @@ export default function CalculadoraConversion() {
               </div>
             </div>
 
-            {/* Conversión de Horas */}
             <div className="conversion-container">
               <div className="conversion-titulo">Conversión de Horas</div>
 
               <div className="conversion-grid">
-                {/* Horas Trabajadas */}
                 <div className="conversion-item">
                   <div className="conversion-label">Trabajadas</div>
                   <div className="conversion-numero conversion-numero-trabajadas">
@@ -265,7 +249,6 @@ export default function CalculadoraConversion() {
                   <div className="conversion-unidad conversion-unidad-trabajadas">horas</div>
                 </div>
 
-                {/* Horas a Liquidar */}
                 <div className="conversion-item">
                   <div className="conversion-label">A Liquidar</div>
                   <div className="conversion-numero conversion-numero-liquidar">
@@ -274,7 +257,6 @@ export default function CalculadoraConversion() {
                   <div className="conversion-unidad conversion-unidad-liquidar">horas</div>
                 </div>
 
-                {/* Diferencia */}
                 <div className="conversion-item">
                   <div className="conversion-label">Diferencia</div>
                   <div className="conversion-numero conversion-numero-diferencia">
@@ -284,7 +266,6 @@ export default function CalculadoraConversion() {
                 </div>
               </div>
 
-              {/* Monto Final */}
               <div className="monto-final">
                 <div className="monto-final-label">Monto final a cobrar</div>
                 <div className="monto-final-valor">

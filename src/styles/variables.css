@@ -1,6 +1,4 @@
-/* src/styles/variables.css */
 :root {
-  /* Colores Polo Tecnológico */
   --polo-verde: #409a87;
   --polo-azul: #3a78a3;
   --polo-celeste: #3698b4;
@@ -8,7 +6,6 @@
   --polo-gradient-light: linear-gradient(135deg, rgba(64, 154, 135, 0.08) 0%, rgba(58, 120, 163, 0.08) 100%);
   --polo-gradient-hover: linear-gradient(135deg, #4db09a 0%, #4a88b3 100%);
   
-  /* Colores base */
   --white: #ffffff;
   --gray-50: #fafafa;
   --gray-100: #f5f5f5;
@@ -21,7 +18,6 @@
   --gray-800: #262626;
   --gray-900: #171717;
   
-  /* Espaciado */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -29,19 +25,16 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   
-  /* Bordes */
   --border-radius-sm: 0.25rem;
   --border-radius-md: 0.5rem;
   --border-radius-lg: 0.75rem;
   --border-radius-xl: 1rem;
   
-  /* Sombras */
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
   
-  /* Fuentes - Tipografía delgada y alta */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   --font-weight-light: 300;
   --font-weight-normal: 400;

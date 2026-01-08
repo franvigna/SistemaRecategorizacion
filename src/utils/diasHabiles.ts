@@ -1,5 +1,3 @@
-// ========== diasHabiles.ts ========== (CON SOPORTE HISTÓRICO)
-
 interface Feriado {
   dia: number;
   mes: number;
@@ -7,16 +5,9 @@ interface Feriado {
   tipo: string;
 }
 
-// Cache de feriados para evitar múltiples llamadas
 const cacheFeriados = new Map<number, Feriado[]>();
 
-/**
- * Obtiene los feriados de Argentina para un año específico
- * Usa API de ArgentinaDatos (soporta años desde 2000 en adelante)
- * La API tiene datos históricos y futuros
- */
 async function obtenerFeriados(año: number): Promise<Feriado[]> {
-  // Verificar caché
   if (cacheFeriados.has(año)) {
     return cacheFeriados.get(año)!;
   }
@@ -41,34 +32,27 @@ async function obtenerFeriados(año: number): Promise<Feriado[]> {
       }));
       
       cacheFeriados.set(año, feriados);
-      console.log(`✅ Feriados ${año} obtenidos (${feriados.length} feriados encontrados)`);
+      console.log(`Feriados ${año} obtenidos (${feriados.length} feriados encontrados)`);
       return feriados;
     }
   } catch (error) {
-    console.warn(`⚠️ No se pudieron obtener feriados de ${año}. Calculando solo con fines de semana.`);
+    console.warn(`No se pudieron obtener feriados de ${año}. Calculando solo con fines de semana.`);
   }
 
-  // Si falla la API, devolver array vacío (cuenta solo fines de semana)
   return [];
 }
 
-/**
- * Verifica si una fecha es día hábil (lunes a viernes, sin feriados)
- */
 function esDiaHabil(fecha: Date, feriados: Feriado[]): boolean {
   const diaSemana = fecha.getDay();
   
-  // Si es sábado (6) o domingo (0), no es día hábil
   if (diaSemana === 0 || diaSemana === 6) {
     return false;
   }
 
-  // Si no hay feriados disponibles, considerar todos los días de semana como hábiles
   if (feriados.length === 0) {
     return true;
   }
 
-  // Verificar si es feriado
   const dia = fecha.getDate();
   const mes = fecha.getMonth() + 1;
 
@@ -77,11 +61,6 @@ function esDiaHabil(fecha: Date, feriados: Feriado[]): boolean {
   return !esFeriado;
 }
 
-/**
- * Calcula la cantidad de días hábiles del mes
- * Considerando feriados de Argentina
- * Funciona con cualquier año (histórico o futuro)
- */
 export async function calcularDiasHabiles(año: number, mes: number): Promise<number> {
   const feriados = await obtenerFeriados(año);
   const primerDia = new Date(año, mes, 1);
@@ -100,18 +79,11 @@ export async function calcularDiasHabiles(año: number, mes: number): Promise<nu
   return diasHabiles;
 }
 
-/**
- * Calcula las horas totales del mes basado en días hábiles
- * (6 horas por día según el documento de reunión)
- */
 export async function calcularHorasMes(año: number, mes: number): Promise<number> {
   const diasHabiles = await calcularDiasHabiles(año, mes);
   return diasHabiles * 6;
 }
 
-/**
- * Limpia el caché de feriados (útil para testing o forzar actualización)
- */
 export function limpiarCacheFeriados(): void {
   cacheFeriados.clear();
 }

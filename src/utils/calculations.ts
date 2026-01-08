@@ -1,22 +1,13 @@
-// src/utils/calculations.ts
-
 import type { Categoria, ResultadoCalculo } from '../types';
 
-/**
- * Calcula la conversión de horas para una recategorización
- * Aplica la regla de 3: (valorNuevo / valorActual) × horasBase
- * Redondea hacia arriba como lo hace Cielo
- */
 export function calcularConversionHoras(
   categoriaActual: Categoria,
   categoriaNueva: Categoria,
   horasBase: number
 ): ResultadoCalculo {
-  // Regla de 3
   const horasConvertidas =
     (categoriaNueva.valorHora / categoriaActual.valorHora) * horasBase;
 
-  // Redondear hacia arriba
   const horasAjustadas = Math.ceil(horasConvertidas);
 
   const diferencia = horasAjustadas - horasBase;
@@ -32,10 +23,6 @@ export function calcularConversionHoras(
   };
 }
 
-/**
- * Valida que una recategorización sea válida
- * Solo permite aumentos de categoría
- */
 export function validarRecategorizacion(
   categoriaActual: Categoria,
   categoriaNueva: Categoria
@@ -57,16 +44,10 @@ export function validarRecategorizacion(
   return { valido: true };
 }
 
-/**
- * Formatea un número con separadores de miles
- */
 export function formatearNumero(numero: number): string {
   return new Intl.NumberFormat('es-AR').format(numero);
 }
 
-/**
- * Formatea un número como moneda argentina
- */
 export function formatearMoneda(numero: number): string {
   return new Intl.NumberFormat('es-AR', {
     style: 'currency',
